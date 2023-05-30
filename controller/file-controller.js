@@ -1,6 +1,9 @@
 // import { response } from "express"
 import File from "../models/file.js";
 import { v4 as uuidv4 } from 'uuid';
+import dotenv from 'dotenv';
+dotenv.config();
+const BASE_URL = process.env.BASE_URL
 
 export const uploadFile = async(req,res) =>{
     // console.log(req);
@@ -13,7 +16,7 @@ export const uploadFile = async(req,res) =>{
     try{
         const file = await File.create(fileObj);
         // console.log(file);
-        res.status(200).json({path: `http://localhost:8000/file/${file._id}`})
+        res.status(200).json({path: `${BASE_URL}/file/${file._id}`})
     }catch(err){
         console.log(err);
         res.status(500).json({err: err.message})
